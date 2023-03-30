@@ -2,6 +2,8 @@
 #' PainéisPúblicos
 #'
 
+library(usethis)
+
 # Configurar o git (apenas 1 vez por computador)
 
 #usethis::use_git_config(user.name = "SwagNoirE", # Seu nome
@@ -31,20 +33,15 @@
 #O RStudio irá fazer o clone do repositório, e abrirá um RProj para ele (caso não exista um ainda, será criado).
 
 # Ou criando um repositório novo diretamente do RStudio
-#Vamos usar a função create_project()
+#Vamos usar a função
+#usethis::create_project("PPPHREBSERH/teste")
 #Cria um projeto .Rproj
 #Argumento importante: path = É o "caminho" para o diretório (pasta). Se o diretório já existe, é utilizado. Se não existe, é criado.
 #Cuidado com o nome do projeto, pois será o mesmo nome que será utilizado no repositório. Você não deve usar o nome de algum repositório já existente no seu GitHub.
 
 # Criando um projeto
 
-#create_project("PATH")
-
-
-
-
-
-
+#usethis::create_project(PATH)
 
 
 # Pactes principais para criar um pacote do R
@@ -70,8 +67,8 @@ use_r("teste")
 
 
 # Utilizando o git para submissão
-use_git()
-use_github()
+#use_git()
+#use_github()
 #O arquivo README é a página inicial do pacote no GitHub
 #use_readme_rmd()
 #build_readme()
