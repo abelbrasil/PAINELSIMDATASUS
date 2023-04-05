@@ -47,7 +47,6 @@ download_SUS <- function(uf, periodo, informacao, tipo, dir = ".", filename = NU
     datas <- seq(as.Date(paste0(inicio, "01"), format = "%Y%m%d"), as.Date(paste0(fim, "01"), format = "%Y%m%d"), by = "month")
     periodos <- format(datas, "%Y%m")
 
-    download_SUS <- function(uf, periodo, informacao, tipo) {
       # Constrói a URL base para o site do DATASUS
       base_url <- "ftp://ftp.datasus.gov.br/dissemin/publicos/"
 
@@ -72,10 +71,7 @@ download_SUS <- function(uf, periodo, informacao, tipo, dir = ".", filename = NU
                         "SINAN" = "SINAN/",
                         "SINASC" = "SINASC/",
                         "siscan" = "siscan/",
-                        "SISPRENATAL" = "SISPRENATAL/",
-                        "TABNET" = "TABNET/",
-                        "TABWIN" = "TABWIN/",
-                        "uploads" = "uploads/")
+                        "SISPRENATAL" = "SISPRENATAL/")
 
       # Constrói a URL para cada arquivo solicitado
       padrao_url <- "%s%s%s_%s.dbc"
@@ -91,7 +87,9 @@ download_SUS <- function(uf, periodo, informacao, tipo, dir = ".", filename = NU
                                "199201_200712/Dados/", "200801_/Dados/", "Arquivos_MTBR/", "MHJ_14_16/",
                                "DOFET/", "DORES/", "DOIGN/", "PRELIM/DOFET/", "PRELIM/DORES/", "PRELIM19/DOFET/", "PRELIM19/DORES/", "PRELIM20/DOFET/", "PRELIM20/DORES/", "PRELIM2017/DOFET/", "PRELIM2017/DORES/", "PRELIM2018/DOFET/", "PRELIM2018/DORES/",
                                "DADOS/FINAIS/", "PRELIM/",
-                               # falata sinasc, siscan, sisprenatal, tabnet, tabwin
+                               "1994_1995/Dados/DNIGN/", "1994_1995/Dados/DNRES/", "1996_/Dados/DNRES/", "ANT/DNIGN/", "ANT/DNRES/", "NOV/DNRES/", "PRELIM/DNRES/", "PRELIM19/DNRES/", "PRELIM20/DNRES/", "PRELIM2017/DNRES/",
+                               "SISCOLO4/DADOS/", "SISMAMA/DADOS/",
+                               "201201_/Dados/",
                                "DADOS/", "2008/DADOS/", "2008_01/DADOS/", "DADOS/FINAIS/")
       if(!any(sapply(caminhos_permitidos, function(caminho) str_detect(urls[1], sprintf("/%s%s_", informacao, caminho))))) {
         stop("A URL informada não contém um caminho válido.")
@@ -102,5 +100,4 @@ download_SUS <- function(uf, periodo, informacao, tipo, dir = ".", filename = NU
         filename <- basename(url)
         download.file(url, destfile = filename, mode = "wb")
       }
-    }
 }
