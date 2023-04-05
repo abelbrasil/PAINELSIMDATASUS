@@ -6,5 +6,6 @@
 #' @export
 #'
 teste <- function(x){
-  2^x
+  a = 2^x
+  return(a)
 }
