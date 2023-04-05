@@ -39,7 +39,40 @@ library(usethis)
 #Argumento importante: path = É o "caminho" para o diretório (pasta). Se o diretório já existe, é utilizado. Se não existe, é criado.
 #Cuidado com o nome do projeto, pois será o mesmo nome que será utilizado no repositório. Você não deve usar o nome de algum repositório já existente no seu GitHub.
 
+#usethis::use_git()
+
 # Criando um projeto
+
+# A partir de um repositório existenete, clonar diretamente do rstudio
+
+#usethis::create_from_github()
+
+#repo_spec = repositório que quer trabalhar. Deve estar no formato: "usuario_github/repositorio". Veja o exemplo abaixo
+
+#destdir = diretório onde quer que os arquivos sejam salvos
+#fork = se igual a TRUE, irá fazer o fork do repositório. Só funcionará se o token do GitHub foi configurado corretamente.
+
+#usethis::create_from_github("rstudio-education/datascience-box",
+#destdir = "C:/Users/beatr/Documents/GitHub",
+#fork = TRUE)
+
+# Criar um branch
+
+#Antes de fazer qualquer modificação, crie uma branch, usando a função usethis::pr_init().
+#Argumento importante: branch = indica o nome da branch que você quer criar.
+
+#usethis::pr_init(branch = "teste")
+
+#Faça suas contribuições, e sempre faça commits com mensagens que deixem claro as mudanças.
+
+#Quando terminar as contribuições necessárias, utilizar a função pr_push():
+
+#pr_push()
+
+#A página do GitHub será aberta, para que possa completar o Pull Request.
+
+
+
 
 #usethis::create_project(PATH)
 
