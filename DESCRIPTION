@@ -5,6 +5,14 @@ Authors@R:
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
+Files: Arquivos_externos
+       help
+       html
+       Meta
+       R
+       DESCRIPTION
+       LICENSE
+       NAMESPACE
 Additional_repositories: https://github.com/SwagNoirE/PaineisPublicos/raw/master/Arquivos_externos/
 InstData: Arquivos_externos
 License: MIT + file LICENSE
