@@ -14,26 +14,30 @@ df = data.frame(matrix(NA, nrow = 20, ncol = 93))
 
 vetores <- list(
   TIPOBITO = c(1),
-  Desc_TIPOBITO = c("Óbito fetal", "Óbito não fetal"),
+  DESC_TIPOBITO = c("Óbito fetal", "Óbito não fetal"),
   
   IDADE1 = c("000", "001", "405", "410", "415", "420", "425", "430", "435", "440", "445", "450", "455", "460", "465", "470", "475", "480", "485", "490"),
   IDADE2 = c("099", "404", "409", "414", "419", "424", "429", "434", "439", "444", "449", "454", "459", "464", "469", "474", "479", "484", "489"),
-  Desc_IDADE = c("Ignorado", "0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80-84", "85-89", "90+"),
+  DESC_IDADE = c("Ignorado", "0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80-84", "85-89", "90+"),
   
   SEXO = c("I", "F", "M"),
-  SEXO_DESC = c("Ignorado", "Feminino", "Masculino"),
+  DESC_SEXO = c("Ignorado", "Feminino", "Masculino"),
   
   RACACOR = c(1, 2, 3, 4, 5),
-  RACACOR_DESC = c("Branca", "Preta", "Amarela", "Parda", "Indígena"),
+  DESC_RACACOR = c("Branca", "Preta", "Amarela", "Parda", "Indígena"),
   
   ESTCIV = c(1, 2, 3, 4, 5, 9),
-  ESTCIV_DESC = c("Solteiro", "Casado", "Viúvo", "Separado judicialmente/divorciado", "União estável", "Ignorado"),
+  DESC_ESTCIV = c("Solteiro", "Casado", "Viúvo", "Separado judicialmente/divorciado", "União estável", "Ignorado"),
   
   ESC = c(0, 1, 2, 3, 4, 5, 9),
-  ESC_DESC = c("Sem escolaridade", "Fundamental I (1ª a 4ª série)", "Fundamental II (5ª a 8ª série)", "Médio (antigo 2º Grau)", "Superior incompleto", "Superior completo", "Ignorado"),
+  DESC_ESC = c("Sem escolaridade", "Fundamental I (1ª a 4ª série)", "Fundamental II (5ª a 8ª série)", "Médio (antigo 2º Grau)", "Superior incompleto", "Superior completo", "Ignorado"),
   
   LOCOCOR = c(1, 2, 3, 4, 5, 6, 9),
   DESC_LOCOCOR = c("Hospital","Outros estabelecimentos de saúde","Domicílio","Via pública","Outros","Aldeia indígena","Ignorado"),
+
+  IDADE3 = c("000", "100", "200", "249"),
+  IDADE4 = c("099", "159", "248", "311"),
+  DESC_IDADEF = c("Ignorado", "até 1 hora", "até 48 horas", "até 1 ano"),
   
   IDADEMAE1 = c(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90),
   IDADEMAE2 = c(14, 19, 24, 29, 34, 39, 44, 49, 54, 59, 64, 69, 74, 79, 84, 89),
@@ -116,40 +120,40 @@ vetores <- list(
   FONTEINV_DESC = c("Comitê de Morte Materna e/ou Infantil", "Visita domiciliar / Entrevista família", "Estabelecimento de Saúde / Prontuário", "Relacionado com outros bancos de dados", "S V O", "I M L", "Outra fonte", "Múltiplas fontes", "Ignorado"),
   
   ESCMAEAGR1 = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-  Desc_ESCMAEAGR1 = c("Sem escolaridade", "Fundamental I Incompleto", "Fundamental I Completo","Fundamental II Incompleto", "Fundamental II Completo", "Ensino Médio Incompleto","Ensino Médio Completo", "Superior Incompleto", "Superior Completo", "Ignorado","Fundamental I Incompleto ou Inespecífico", "Fundamental II Incompleto ou Inespecífico","Ensino Médio Incompleto ou Inespecífico"),
+  DESC_ESCMAEAGR1 = c("Sem escolaridade", "Fundamental I Incompleto", "Fundamental I Completo","Fundamental II Incompleto", "Fundamental II Completo", "Ensino Médio Incompleto","Ensino Médio Completo", "Superior Incompleto", "Superior Completo", "Ignorado","Fundamental I Incompleto ou Inespecífico", "Fundamental II Incompleto ou Inespecífico","Ensino Médio Incompleto ou Inespecífico"),
   
   ESCFALAGR1 = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-  Desc_ESCFALAGR1 = c("Sem escolaridade", "Fundamental I Incompleto", "Fundamental I Completo","Fundamental II Incompleto", "Fundamental II Completo", "Ensino Médio Incompleto","Ensino Médio Completo", "Superior Incompleto", "Superior Completo", "Ignorado","Fundamental I Incompleto ou Inespecífico", "Fundamental II Incompleto ou Inespecífico","Ensino Médio Incompleto ou Inespecífico"),
+  DESC_ESCFALAGR1 = c("Sem escolaridade", "Fundamental I Incompleto", "Fundamental I Completo","Fundamental II Incompleto", "Fundamental II Completo", "Ensino Médio Incompleto","Ensino Médio Completo", "Superior Incompleto", "Superior Completo", "Ignorado","Fundamental I Incompleto ou Inespecífico", "Fundamental II Incompleto ou Inespecífico","Ensino Médio Incompleto ou Inespecífico"),
   
   STDOEPIDEM = c(1, 0),
-  Desc_STDOEPIDEM = c("Sim", "Não"),
+  DESC_STDOEPIDEM = c("Sim", "Não"),
   
   STDONOVA = c(1, 0),
-  Desc_STDONOVA = c("Sim", "Não"),
+  DESC_STDONOVA = c("Sim", "Não"),
   
   TPOBITOCOR = c(1, 2, 3, 4, 5, 6, 7, 8, 9, "Branco"),
-  Desc_TPOBITOCOR = c("Durante a gestação", "Durante o abortamento", "Após o abortamento","No parto ou até 1 hora após o parto", "No puerpério - até 42 dias após o parto","Entre 43 dias e até 1 ano após o parto", "A investigação não identificou o momento do óbito","Mais de um ano após o parto", "O óbito não ocorreu nas circunstâncias anteriores","Não investigado"),
+  DESC_TPOBITOCOR = c("Durante a gestação", "Durante o abortamento", "Após o abortamento","No parto ou até 1 hora após o parto", "No puerpério - até 42 dias após o parto","Entre 43 dias e até 1 ano após o parto", "A investigação não identificou o momento do óbito","Mais de um ano após o parto", "O óbito não ocorreu nas circunstâncias anteriores","Não investigado"),
   
   TPRESGINFO = c("01", "02", "03"),
-  Desc_TPRESGINFO = c("Não acrescentou nem corrigiu informação", "Sim, permitiu o resgate de novas informações","Sim, permitiu a correção de alguma das causas informadas originalmente"),
+  DESC_TPRESGINFO = c("Não acrescentou nem corrigiu informação", "Sim, permitiu o resgate de novas informações","Sim, permitiu a correção de alguma das causas informadas originalmente"),
   
   TPNIVELINV = c("E", "R", "M"),
-  Desc_TPNIVELINV = c("Estadual", "Regional", "Municipal"),
+  DESC_TPNIVELINV = c("Estadual", "Regional", "Municipal"),
   
   MORTEPARTO = c(1, 2, 3, 9),
-  Desc_MORTEPARTO = c("Antes", "Durante", "Após", "Ignorado"),
+  DESC_MORTEPARTO = c("Antes", "Durante", "Após", "Ignorado"),
   
   ALTCAUSA = c(1, 2),
-  Desc_ALTCAUSA = c("Sim", "Não"),
+  DESC_ALTCAUSA = c("Sim", "Não"),
   
   TPPOS = c(1, 2),
-  Desc_TPPOS = c("Sim", "Não"),
+  DESC_TPPOS = c("Sim", "Não"),
   
   GESTACAO = c(1, 2, 3, 4, 5, 6),
-  Desc_GESTACAO = c("Menos de 22 semanas", "22 a 27 semanas", "28 a 31 semanas", "32 a 36 semanas","37 a 41 semanas", "42 e + semanas"),
+  DESC_GESTACAO = c("Menos de 22 semanas", "22 a 27 semanas", "28 a 31 semanas", "32 a 36 semanas","37 a 41 semanas", "42 e + semanas"),
   
   CIRURGIA = c(1, 2, 9),
-  Desc_CIRURGIA = c("Sim", "Não", "Ignorado")
+  DESC_CIRURGIA = c("Sim", "Não", "Ignorado")
   
 )
 
@@ -161,4 +165,4 @@ for (i in seq_len(min(length(vetores), ncol(df)))) {
 
 # Salva em xlsx
 
-write.xlsx(df, "Descricao.xlsx", rownames = FALSE)
+write.xlsx(df, "DESCricao.xlsx", rownames = FALSE)
