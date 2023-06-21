@@ -16,8 +16,13 @@ remotes::install_github("SwagNoirE/PaineisPublicos")
 ```
 
 Para acessar o painel, acesse pelo link ou QR code
+<p align="center">
+  <a href="https://aka.ms/AAlagzv">Painel</a>
+</p>
 
-![Imagem](inst/Arquivos_externos/[Modelo]Painel.jpg)
+<p align="center">
+  <img src="inst/Arquivos_externos/[Modelo]Painel.jpg" alt="Imagem">
+</p>
 
 ## Example
 
