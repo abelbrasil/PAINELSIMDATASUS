@@ -255,38 +255,52 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Transformar as colunas de IDADE, IDADEMAE e PESO de acordo com os intervalos definidos em Descricao
   tryCatch({
     # Substituir os valores da coluna SIM$`Obito fetal e até 11 meses` pelos valores de Descricao$DESC_IDADEF
-    for (i in 1:nrow(Descricao)) {
-      intervalo <- Descricao[i, c("IDADE3", "IDADE4")]
-      substituicao <- Descricao[i, "DESC_IDADEF"]
-      SIM$`Obito fetal e até 11 meses`[as.numeric(SIM$IDADE) >= as.numeric(intervalo[1]) & as.numeric(SIM$IDADE) <= as.numeric(intervalo[2])] <- substituicao
-    }
+    suppressWarnings({
+      for (i in 1:nrow(Descricao)) {
+        intervalo <- Descricao[i, c("IDADE3", "IDADE4")]
+        substituicao <- Descricao[i, "DESC_IDADEF"]
+        SIM$`Obito fetal e até 11 meses`[as.numeric(SIM$IDADE) >= as.numeric(intervalo[1]) & as.numeric(SIM$IDADE) <= as.numeric(intervalo[2])] <- substituicao
+      }
+    })
     
     # Substituir os valores da coluna SIM$IDADE pelos valores de Descricao$Desc_IDADE
-    for (i in 1:nrow(Descricao)) {
-      intervalo <- Descricao[i, c("IDADE1", "IDADE2")]
-      substituicao <- Descricao[i, "Desc_IDADE"]
-      SIM$IDADE[as.numeric(SIM$IDADE) >= as.numeric(intervalo[1]) & as.numeric(SIM$IDADE) <= as.numeric(intervalo[2])] <- substituicao
-    }
+    suppressWarnings({
+      for (i in 1:nrow(Descricao)) {
+        intervalo <- Descricao[i, c("IDADE1", "IDADE2")]
+        substituicao <- Descricao[i, "Desc_IDADE"]
+        SIM$IDADE[as.numeric(SIM$IDADE) >= as.numeric(intervalo[1]) & as.numeric(SIM$IDADE) <= as.numeric(intervalo[2])] <- substituicao
+      }
+    })
     
     # Substituir os valores da coluna SIM$IDADEMAE pelos valores de Descricao$IDADEMAE_DESC
-    for (i in 1:nrow(Descricao)) {
-      intervalo <- Descricao[i, c("IDADEMAE1", "IDADEMAE2")]
-      substituicao <- Descricao[i, "IDADEMAE_DESC"]
-      SIM$IDADEMAE[as.numeric(SIM$IDADEMAE) >= as.numeric(intervalo[1]) & as.numeric(SIM$IDADEMAE) <= as.numeric(intervalo[2])] <- substituicao
-    }
+    suppressWarnings({
+      for (i in 1:nrow(Descricao)) {
+        intervalo <- Descricao[i, c("IDADEMAE1", "IDADEMAE2")]
+        substituicao <- Descricao[i, "IDADEMAE_DESC"]
+        SIM$IDADEMAE[as.numeric(SIM$IDADEMAE) >= as.numeric(intervalo[1]) & as.numeric(SIM$IDADEMAE) <= as.numeric(intervalo[2])] <- substituicao
+      }
+    })
     
     # Substituir os valores da coluna SIM$PESO pelos valores de Descricao$PESO_DESC
-    for (i in 1:nrow(Descricao)) {
-      intervalo <- Descricao[i, c("PESO1", "PESO2")]
-      substituicao <- Descricao[i, "PESO_DESC"]
-      SIM$PESO[as.numeric(SIM$PESO) >= as.numeric(intervalo[1]) & as.numeric(SIM$PESO) <= as.numeric(intervalo[2])] <- substituicao
-    }
+    suppressWarnings({
+      for (i in 1:nrow(Descricao)) {
+        intervalo <- Descricao[i, c("PESO1", "PESO2")]
+        substituicao <- Descricao[i, "PESO_DESC"]
+        SIM$PESO[as.numeric(SIM$PESO) >= as.numeric(intervalo[1]) & as.numeric(SIM$PESO) <= as.numeric(intervalo[2])] <- substituicao
+      }
+    })
   }, error = function(e) {
     # Ação a ser executada caso ocorra um erro
     # Por exemplo, imprimir uma mensagem de erro
     mensagem_erro <- "Ocorreu um erro ao realizar o tratamento dos dados"
     print(mensagem_erro)
   })
+  
+  # Converter os resultados das colunas de lista para caracteres
+  SIM$`Obito fetal e até 11 meses` <- as.character(unlist(SIM$`Obito fetal e até 11 meses`))
+  SIM$IDADE <- as.character(unlist(SIM$IDADE))
+  SIM$IDADEMAE <- as.character(unlist(SIM$IDADEMAE))
+  SIM$PESO <- as.character(unlist(SIM$PESO))
   
   # adicionando coluna de ID
   SIM =
