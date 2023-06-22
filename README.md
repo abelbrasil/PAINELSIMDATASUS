@@ -9,11 +9,23 @@ O pacote "PaineisPublicos" foi criado para simplificar e agilizar o processo de 
 
 Para acessar o painel, acesse pelo link ou QR code
 <p align="center">
-  <a href="https://aka.ms/AAlagzv">Painel do Sistema de Informações de Óbito</a>
+  <a href="[https://aka.ms/AAlagzv](https://app.powerbi.com/groups/me/reports/a366bfe7-60ba-44a0-a4cd-078032fcc524/ReportSection?ctid=64d34ddd-aff0-4d95-b7f1-0734a5c845e5&pbi_source=shareVisual&visual=bc0a316e63ff04cebed7&height=138.42&width=1280.00&bookmarkGuid=14e84f32-4e54-4a41-9bf5-2cf26eacb94d)">Painel do Sistema de Informações de Óbito</a>
 </p>
 
 <p align="center">
   <img src="inst/Arquivos_externos/[Modelo]Painel.jpg" alt="Imagem">
+</p>
+
+A visualização dos painéis será semelhante a esta:
+Observação: As imagens a seguir mostram não apenas o painel, mas também as funcionalidades dos botões.
+
+<p align="center">
+  <img src="inst/Arquivos_externos/Imagens/pag1.PNG" alt="Imagem 1">
+  <img src="inst/Arquivos_externos/Imagens/pag1.1.PNG" alt="Imagem 2">
+  <img src="inst/Arquivos_externos/Imagens/pag1.2.PNG" alt="Imagem 3">
+  <img src="inst/Arquivos_externos/Imagens/pag1.3.PNG" alt="Imagem 4">
+  <img src="inst/Arquivos_externos/Imagens/pag1.4.PNG" alt="Imagem 5">
+  <img src="inst/Arquivos_externos/Imagens/pag1.5.PNG" alt="Imagem 6">
 </p>
 
 ## Funcionalidades
