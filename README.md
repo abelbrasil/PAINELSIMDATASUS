@@ -9,7 +9,7 @@ O pacote "PaineisPublicos" foi criado para simplificar e agilizar o processo de 
 
 Para acessar o painel, acesse pelo link ou QR code
 <p align="center">
-  <a href="[https://aka.ms/AAlagzv](https://app.powerbi.com/groups/me/reports/a366bfe7-60ba-44a0-a4cd-078032fcc524/ReportSection?ctid=64d34ddd-aff0-4d95-b7f1-0734a5c845e5&pbi_source=shareVisual&visual=bc0a316e63ff04cebed7&height=138.42&width=1280.00&bookmarkGuid=14e84f32-4e54-4a41-9bf5-2cf26eacb94d)]">Painel do Sistema de Informações de Óbito</a>
+  <a href="[https://app.powerbi.com/groups/me/reports/a366bfe7-60ba-44a0-a4cd-078032fcc524/ReportSection?ctid=64d34ddd-aff0-4d95-b7f1-0734a5c845e5&pbi_source=shareVisual&visual=bc0a316e63ff04cebed7&height=138.42&width=1280.00&bookmarkGuid=14e84f32-4e54-4a41-9bf5-2cf26eacb94d]">Painel do Sistema de Informações de Óbito</a>
 </p>
 
 <p align="center">
