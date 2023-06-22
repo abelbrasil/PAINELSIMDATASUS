@@ -16,8 +16,8 @@ Para acessar o painel, acesse pelo link ou QR code
   <img src="inst/Arquivos_externos/[Modelo]Painel.jpg" alt="Imagem">
 </p>
 
-A visualização dos painéis será semelhante a esta:
-Observação: As imagens a seguir mostram não apenas o painel, mas também as funcionalidades dos botões.
+#### A visualização dos painéis será semelhante a esta:
+##### Observação: As imagens a seguir mostram não apenas o painel, mas também as funcionalidades dos botões.
 
 <p align="center">
   <img src="inst/Arquivos_externos/Imagens/pag1.PNG" alt="Imagem 1">
@@ -85,5 +85,5 @@ O pacote "PaineisPublicos" é distribuído sob a licença MIT. Consulte o arquiv
 
 Para mais informações ou perguntas relacionadas a este pacote, entre em contato com o desenvolvedor:
 
-Nome: [Estela Ferreira LOpes]
+Nome: [Estela Ferreira Lopes]
 Email: [estelalopes2002@gmail.com]
