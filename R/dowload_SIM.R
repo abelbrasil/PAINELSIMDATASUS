@@ -130,33 +130,33 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   } else {
     mensagem_aviso <- "Os arquivos .DBC correspondentes já existem. O download não será iniciado."
     print(mensagem_aviso)
-  }
-  
-  # Ler os arquivos .DBC existentes em dir_destino
-  if (arquivos_existentes) {
-    for (i in 1:length(uf)) {
-      for (j in 1:length(periodo)) {
-        file_name <- paste0("DO", uf[i], periodo[j], ".DBC")
-        file_path <- file.path(dir_destino, file_name)
-        if (file.exists(file_path)) {
-          # Lê o arquivo e salva em um dataframe
-          cat(paste0("Lendo o arquivo ", file_name, "\n"))
-          file_ext <- tools::file_ext(file_path)
-          
-          if (file_ext == "dbf") {
-            file_df <- foreign::read.dbf(gzfile(file_path))
-          } else if (file_ext == "dbc" | file_ext == "DBC") {
-            file_df <- read.dbc::read.dbc(file_path)
-          } else {
-            stop(paste0("O arquivo ", file_name, " não está no formato DBC ou DBF."))
+    
+    # Ler os arquivos .DBC existentes em dir_destino
+    if (arquivos_existentes) {
+      for (i in 1:length(uf)) {
+        for (j in 1:length(periodo)) {
+          file_name <- paste0("DO", uf[i], periodo[j], ".DBC")
+          file_path <- file.path(dir_destino, file_name)
+          if (file.exists(file_path)) {
+            # Lê o arquivo e salva em um dataframe
+            cat(paste0("Lendo o arquivo ", file_name, "\n"))
+            file_ext <- tools::file_ext(file_path)
+            
+            if (file_ext == "dbf") {
+              file_df <- foreign::read.dbf(gzfile(file_path))
+            } else if (file_ext == "dbc" | file_ext == "DBC") {
+              file_df <- read.dbc::read.dbc(file_path)
+            } else {
+              stop(paste0("O arquivo ", file_name, " não está no formato DBC ou DBF."))
+            }
+            
+            # Adiciona as colunas UF e período
+            file_df$UF <- uf[i]
+            file_df$ANO <- periodo[j]
+            
+            # Adiciona os dados ao dataframe SIM
+            SIM <- rbind(file_df)
           }
-          
-          # Adiciona as colunas UF e período
-          file_df$UF <- uf[i]
-          file_df$ANO <- periodo[j]
-          
-          # Adiciona os dados ao dataframe SIM
-          SIM <- rbind(file_df)
         }
       }
     }
