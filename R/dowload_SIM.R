@@ -27,8 +27,27 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
     library(pacman)
   }
   
-  pacman::p_load(furrr, fs, curl, httr, read.dbc, foreign, data.table, tibble,
+  pacman::p_load(furrr, fs, curl, httr, foreign, data.table, tibble,
                  stringi, stringr, progressr, writexl, dplyr, openxlsx, readxl)
+
+  # Move a pasta read.dbc para o library do usuário ++++++++++++++++++++++++++++
+  
+  # Diretório de destino
+  dest_dir <- file.path(Sys.getenv("R_HOME"), "library")
+  
+  # Caminho completo da pasta "read.dbc"
+  caminho_pasta <- system.file("Arquivos_externos", package = "PaineisPublicos")
+  caminho_completo <- file.path(caminho_pasta, "read.dbc")
+  
+  # Verifica se a pasta existe
+  if (file.exists(caminho_completo)) {
+    # Move a pasta para o diretório de destino
+    novo_caminho_completo <- file.path(dest_dir, "read.dbc")
+    file.rename(caminho_completo, novo_caminho_completo)
+    cat("Pasta movida com sucesso para:", novo_caminho_completo)
+  } else {
+    cat("A pasta 'read.dbc' não foi encontrada no diretório:", caminho_pasta)
+  }
   
   # Transformacao dos parametros ++++++++++++++++++++++++++++++++++++
   
