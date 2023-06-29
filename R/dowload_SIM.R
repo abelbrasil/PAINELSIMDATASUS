@@ -57,8 +57,6 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Transforma a entrada de periodo em um vetor, se necessário
   if (!is.vector(periodo)) periodo <- as.vector(periodo)
   
-  
-  
   # Diretorio e arquivos +++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
   # Define o diretório de destino dos arquivos baixados
@@ -331,7 +329,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
     SIM %>%
     mutate(`Obitos` = 1)
   
-  #$ Seção óbitos em mulher fértil: Situação gestacional ou pósgestacional em que ocorreu o óbito
+  # Seção óbitos em mulher fértil: Situação gestacional ou pósgestacional em que ocorreu o óbito
   SIM = 
     SIM %>%
     mutate(
@@ -349,8 +347,8 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
         TRUE ~ "Não informado")
     )
   
-  #$ Computar os casos não preenchidos em TPMORTEOCO
-  #$ Mulheres Elegíveis
+  # Computar os casos não preenchidos em TPMORTEOCO
+  # Mulheres Elegíveis
   SIM = 
     SIM %>%
     mutate(
@@ -360,7 +358,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
       MULHERES_ELEGIVEIS_SEM_PREEN = if_else(MULHERES_ELEGIVEIS == 1 & TPMORTEOCO == "Não informado", 1, 0)
     )
   
-  #$ _____________________________________________________________________
+  # Criando tabela Razão de óbito para classificar os CID's do médico e sistema ++
   
   # Separando CAUSABAS e CAUSABAS_O, LINHAA e LINHAA_O
   # Variável derivada
@@ -383,7 +381,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   Razao_de_obito <- full_join(OBITO_S, OBITO_M, by = c("ID", "CAUSABAS", "Identif"))
   rm(OBITO_M, OBITO_S)
   
-  #$ _____________________________________________________________________
+  # Tramsformar colunas de data e de hora para formato YYY-mm-dd e HH:MM +++++++++
   
   # Identificar e transformar colunas com prefixo DT em formato YYY-mm-dd
   for (coluna in colnames(SIM)) {
@@ -399,6 +397,106 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Transformar todos os NA do SIM em "Sem Informação", exceto nas linhas em que TIPOBITO for "Óbito fetal"
   SIM = SIM %>%
     mutate(across(everything(), ~ ifelse(is.na(.) & TIPOBITO != "Óbito fetal", "Sem Informação", .)))
+
+  # Código auxiliar para organizar e classificar as variáveis ++++++++++++++++++++
+  SIM =
+    SIM %>%
+    mutate(
+      IDADE_COD = case_when(
+        IDADE == "0-4" ~ 1,
+        IDADE == "5-9" ~ 2,
+        IDADE == "10-14" ~ 3,
+        IDADE == "15-19" ~ 4,
+        IDADE == "20-24" ~ 5,
+        IDADE == "25-29" ~ 6,
+        IDADE == "30-34" ~ 7,
+        IDADE == "35-39" ~ 8,
+        IDADE == "40-44" ~ 9,
+        IDADE == "45-49" ~ 10,
+        IDADE == "50-54" ~ 11,
+        IDADE == "55-59" ~ 12,
+        IDADE == "60-64" ~ 13,
+        IDADE == "65-69" ~ 14,
+        IDADE == "70-74" ~ 15,
+        IDADE == "75-79" ~ 16,
+        IDADE == "80-84" ~ 17,
+        IDADE == "85-89" ~ 18,
+        IDADE == "90+" ~ 19
+      ),
+      ESC2010_COD = case_when(
+        ESC2010 == "Sem escolaridade" ~ 1,
+        ESC2010 == "Fundamental I (1ª a 4ª série)" ~ 2,
+        ESC2010 == "Fundamental II (5ª a 8ª série)" ~ 3,
+        ESC2010 == "Médio (antigo 2º Grau)" ~ 4,
+        ESC2010 == "Superior incompleto" ~ 5,
+        ESC2010 == "Superior completo" ~ 6,
+        ESC2010 == "Ignorado" ~ 7,
+        ESC2010 == "Sem Informação" ~ 8
+      ),
+      TPMORTEOCO_COD = case_when(
+        TPMORTEOCO == "Gravidez" ~ 1,
+        TPMORTEOCO == "Abortamento" ~ 2,
+        TPMORTEOCO == "Parto" ~ 3,
+        TPMORTEOCO == "Até 42 dias após o término do parto" ~ 4,
+        TPMORTEOCO == "De 43 dias a 1 ano após o término da gestação" ~ 5,
+        TPMORTEOCO == "Não ocorreu nestes períodos" ~ 6,
+        TPMORTEOCO == "Ignorad" ~ 7,
+        TPMORTEOCO == "Sem Informação" ~ 8
+      ),
+      IDADEMAE_COD = case_when(
+        IDADEMAE == "10-14" ~ 1,
+        IDADEMAE == "15-19" ~ 2,
+        IDADEMAE == "20-24" ~ 3,
+        IDADEMAE == "25-29" ~ 4,
+        IDADEMAE == "30-34" ~ 5,
+        IDADEMAE == "35-39" ~ 6,
+        IDADEMAE == "40-44" ~ 7,
+        IDADEMAE == "45-49" ~ 8,
+        IDADEMAE == "50-54" ~ 9,
+        IDADEMAE == "55-59" ~ 10,
+        IDADEMAE == "60-64" ~ 11,
+        IDADEMAE == "65-69" ~ 12,
+        IDADEMAE == "70-74" ~ 13,
+        IDADEMAE == "75-79" ~ 14,
+        IDADEMAE == "80-84" ~ 15,
+        IDADEMAE == "85-89" ~ 16,
+        IDADEMAE == "90+" ~ 17
+      ),
+      ESCMAE2010_COD = case_when(
+        ESCMAE2010 == "Sem escolaridade" ~ 1,
+        ESCMAE2010 == "Fundamental I (1ª a 4ª série)" ~ 2,
+        ESCMAE2010 == "Fundamental II (5ª a 8ª série)" ~ 3,
+        ESCMAE2010 == "Médio (antigo 2º Grau)" ~ 4,
+        ESCMAE2010 == "Superior incompleto" ~ 5,
+        ESCMAE2010 == "Superior completo" ~ 6,
+        ESCMAE2010 == "Ignorado" ~ 7,
+        ESCMAE2010 == "Sem Informação" ~ 8
+      ),
+      GESTACAO_COD = case_when(
+        GESTACAO == "Menos de 22 semanas" ~ 1,
+        GESTACAO == "22 a 27 semanas" ~ 2,
+        GESTACAO == "28 a 31 semanas" ~ 3,
+        GESTACAO == "32 a 36 semanas" ~ 4,
+        GESTACAO == "37 a 41 semanas" ~ 5,
+        GESTACAO == "42 e + semanas" ~ 6,
+        GESTACAO == "Ignorado" ~ 7,
+        GESTACAO == "Sem Informação" ~ 8
+      ),
+      PESO_COD = case_when(
+        PESO == "Insuficiente" ~ 1,
+        PESO == "Baixo" ~ 2,
+        PESO == "Adequado" ~ 3,
+        PESO == "Excesso" ~ 4,
+        PESO == "Sem Informação" ~ 5
+      ),
+      GRAVIDEZ_COD = case_when(
+        GRAVIDEZ == "Única" ~ 1,
+        GRAVIDEZ == "Dupla" ~ 2,
+        GRAVIDEZ == "Tripla e mais" ~ 3,
+        GRAVIDEZ == "Ignorada" ~ 4,
+        GRAVIDEZ == "Sem Informação" ~ 5
+      )
+    )
   
   # Define a lista de dataframes a serem retornados
   dataframes <- list(SIM = SIM, CBO = CBO, CID = CID, Municipio = Municipio, Descricao = Descricao, Razao_de_obito = Razao_de_obito)
