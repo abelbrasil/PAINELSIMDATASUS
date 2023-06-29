@@ -415,31 +415,16 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Salva o arquivo RData
   save.image(file = caminho_arquivo)
   
-  # Procurar o executável do Power BI
-  caminho_executavel <- Sys.which("pbidesktop.exe")
+  # Caminho completo do arquivo "[Modelo]Painel.pbix"
+  caminho_pasta <- system.file("Arquivos_externos", package = "PaineisPublicos")
+  caminho_completo <- file.path(caminho_pasta, "[Modelo]Painel.pbix")
   
-  # Procurar o executável do Power BI
-  caminho_executavel <- Sys.which("pbidesktop.exe")
-  
-  # Verificar se o executável foi encontrado
-  if (!is.na(caminho_executavel)) {
-    # Caminho completo para o painel
-    caminho_painel <- system.file("Arquivos_externos/[Modelo]Painel.pbix", package = "PaineisPublicos")
-    
-    # Verificar se o painel existe
-    if (file.exists(caminho_painel)) {
-      # Abrir o Power BI com o painel específico
-      comando <- paste0("\"", caminho_executavel, "\"", " --no-sandbox --file=", "\"", caminho_painel, "\"")
-      system(comando)
-    } else {
-      # Exibir mensagem de erro se o painel não for encontrado
-      mensagem_erro <- "O arquivo do painel não foi encontrado."
-      print(mensagem_erro)
-    }
-  } else {
-    # Exibir mensagem de erro se o executável não for encontrado
-    mensagem_erro <- "O executável do Power BI não foi encontrado."
-    print(mensagem_erro)
-  }
+  # Verifica se o arquivo existe
+  if (file.exists(caminho_completo)) {
+    # Move o arquivo para o diretório de destino
+    novo_caminho_completo <- file.path(dir_destino, "[Modelo]Painel.pbix")
+    file.rename(caminho_completo, novo_caminho_completo)
+    cat("Arquivo movido com sucesso para:", novo_caminho_completo)
+  } else {cat("O arquivo '[Modelo]Painel.pbix' não foi encontrado no diretório:", caminho_pasta)}
   
 }
