@@ -20,8 +20,6 @@
 
 download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   
-  # Carrega pacotes ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  # Carrega o pacote pacman
   if (!require(pacman)) {
     install.packages("pacman")
     library(pacman)
@@ -29,49 +27,46 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   
   pacman::p_load(furrr, fs, curl, httr, data.table, tibble,
                  stringi, stringr, progressr, writexl, dplyr, openxlsx, readxl)
-
-  # Move a pasta read.dbc para o library do usuário ++++++++++++++++++++++++++++
   
-  # Diretório de destino
+  # Move a pasta read.dbc para o library do usuário ++++++++++++++++++++++++++++
+  # Destination directory
   dest_dir <- file.path(Sys.getenv("USERPROFILE"), "Documents", "R", "win-library", "4.1")
   
-  # Caminho completo da pasta "read.dbc"
+  # Complete path of the "read.dbc" folder
   caminho_pasta <- system.file("Arquivos_externos", package = "PAINELSIMDATASUS")
   caminho_completo <- file.path(caminho_pasta, "read.dbc")
   
-  # Verifica se a pasta existe
+  # Check if the folder exists
   if (file.exists(caminho_completo)) {
-    # Move o arquivo para o diretório de destino
+    # Move the folder to the destination directory
     novo_caminho_completo <- file.path(dest_dir, "read.dbc")
     file.rename(caminho_completo, novo_caminho_completo)
-    cat("O arquivo 'read.dbc' foi movido com sucesso para:", novo_caminho_completo)
+    cat("A pasta 'read.dbc' foi movida com sucesso para:", novo_caminho_completo)
   } else {
-    cat("O arquivo 'read.dbc' não foi encontrado no diretório:", caminho_pasta)
+    cat("A pasta 'read.dbc' não foi encontrada no diretório:", caminho_pasta)
   }
   
   # Transformacao dos parametros ++++++++++++++++++++++++++++++++++++
-  
-  # Transforma a entrada de uf em um vetor, se necessário
+  # Convert the input 'uf' into a vector if necessary
   if (!is.vector(uf)) uf <- as.vector(uf)
   
-  # Transforma a entrada de periodo em um vetor, se necessário
+  # Convert the input 'periodo' into a vector if necessary
   if (!is.vector(periodo)) periodo <- as.vector(periodo)
   
   # Diretorio e arquivos +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  
-  # Define o diretório de destino dos arquivos baixados
+  # Define the destination directory for downloaded files
   dir_destino <- file.path(dir, "SIM")
   
-  # Verifica se o diretório de destino existe, caso contrário, cria o diretório
+  # Check if the destination directory exists, if not, create it
   if (!dir.exists(dir_destino)) {
     dir.create(dir_destino, recursive = TRUE)
-    cat(paste0("O direório ", dir_destino, " foi criado.\n"))
+    cat(paste0("O diretório ", dir_destino, " foi criado.\n"))
   }
   
-  # Informa o diretório de sada ao usuário
+  # Inform the user about the output directory
   cat(paste0("Os arquivos serão salvos em: ", dir_destino, "\n"))
   
-  # Verificar se os arquivos .DBC correspondentes já existem
+  # Check if the corresponding .DBC files already exist
   arquivos_existentes <- FALSE
   for (i in 1:length(uf)) {
     for (j in 1:length(periodo)) {
@@ -84,12 +79,12 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
     }
   }
   
-  # Iniciar o processo somente se os arquivos .DBC não existirem
+  # Start the process only if the .DBC files do not exist
   if (!arquivos_existentes) {
     # Transformacao dos parametros
     if (!is.vector(uf)) uf <- as.vector(uf)
     if (!is.vector(periodo)) periodo <- as.vector(periodo)
-  
+    
     # URL base para o site do DATASUS
     base_url <- "ftp://ftp.datasus.gov.br/dissemin/publicos/SIM/CID10/DORES/"
     
@@ -97,8 +92,8 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
     
     # Define as colunas do dataframe SIM
     SIM = data.frame(UF = character(),
-                      ANO = integer(),
-                      stringsAsFactors = FALSE)
+                     ANO = integer(),
+                     stringsAsFactors = FALSE)
     
     # Loop pelos valores de uf e periodo para baixar os arquivos correspondentes
     for (i in 1:length(uf)) {
@@ -168,12 +163,15 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
             file_df$ANO <- periodo[j]
             
             # Adiciona os dados ao dataframe SIM
-            SIM <- rbind(file_df)
+            SIM <- rbind(SIM, file_df)
           }
         }
       }
     }
   }
+  
+  # Transfer the 'SIM' dataframe to the global environment
+  assign("SIM", SIM, envir = .GlobalEnv)
   
   # Tratamento dos dados +++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
