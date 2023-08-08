@@ -141,6 +141,11 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   } else {
     mensagem_aviso <- "Os arquivos .DBC correspondentes já existem. O download não será iniciado."
     print(mensagem_aviso)
+
+    # Define as colunas do dataframe SIM
+    SIM = data.frame(UF = character(),
+                     ANO = integer(),
+                     stringsAsFactors = FALSE)
     
     # Ler os arquivos .DBC existentes em dir_destino
     if (arquivos_existentes) {
