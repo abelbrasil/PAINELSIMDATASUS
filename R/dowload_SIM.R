@@ -68,60 +68,62 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   cat(paste0("Os arquivos serão salvos em: ", dir_destino, "\n"))
   
   # Transformacao dos parametros
-if (!is.vector(uf)) uf <- as.vector(uf)
-if (!is.vector(periodo)) periodo <- as.vector(periodo)
-
-# URL base para o site do DATASUS
-base_url <- "ftp://ftp.datasus.gov.br/dissemin/publicos/SIM/CID10/DORES/"
-
-# Define as colunas do dataframe SIM
-SIM <- data.frame(UF = character(),
-                  ANO = integer(),
-                  stringsAsFactors = FALSE)
-
-# Loop pelos valores de uf e periodo para baixar os arquivos correspondentes
-for (i in 1:length(uf)) {
-  for (j in 1:length(periodo)) {
-    file_name <- paste0("DO", uf[i], periodo[j], ".DBC")
-    file_path <- file.path(dir_destino, file_name)
-
-    # Verifica se o arquivo já foi baixado
-    if (!file.exists(file_path)) {
-      # Verifica se a extensão está como .dbc ou .DBC na URL
-      url <- stri_paste(base_url, file_name)
-      if (!identical(httr::status_code(httr::GET(url)), 200L)) {
-        file_name <- paste0("DO", uf[i], periodo[j], ".dbc")
+  if (!is.vector(uf)) uf <- as.vector(uf)
+  if (!is.vector(periodo)) periodo <- as.vector(periodo)
+  
+  # URL base para o site do DATASUS
+  base_url <- "ftp://ftp.datasus.gov.br/dissemin/publicos/SIM/CID10/DORES/"
+  
+  # Define as colunas do dataframe SIM
+  SIM <- data.frame(UF = character(),
+                    ANO = integer(),
+                    stringsAsFactors = FALSE)
+  
+  # Loop pelos valores de uf e periodo para baixar os arquivos correspondentes
+  for (i in 1:length(uf)) {
+    for (j in 1:length(periodo)) {
+      file_name <- paste0("DO", uf[i], periodo[j], ".DBC")
+      file_path <- file.path(dir_destino, file_name)
+  
+      # Verifica se o arquivo já foi baixado
+      if (!file.exists(file_path)) {
+        # Verifica se a extensão está como .dbc ou .DBC na URL
         url <- stri_paste(base_url, file_name)
         if (!identical(httr::status_code(httr::GET(url)), 200L)) {
-          cat(paste0("Arquivo ", file_name, " não encontrado.\n"))
-          next
+          file_name_alt <- paste0("DO", uf[i], periodo[j], ".dbc")
+          url_alt <- stri_paste(base_url, file_name_alt)
+          if (!identical(httr::status_code(httr::GET(url_alt)), 200L)) {
+            cat(paste0("Arquivo ", file_name, " não encontrado.\n"))
+            next
+          }
+          file_name <- file_name_alt
+          url <- url_alt
         }
+  
+        # Cria conexão com a URL e baixa o arquivo
+        file_name_local <- stri_replace_last_fixed(file_name, ".dbc", ".DBC")
+        curl_download(url, file.path(dir_destino, file_name_local))
       }
-
-      # Cria conexão com a URL e baixa o arquivo
-      file_name_local <- stri_replace_last_fixed(file_name, ".dbc", ".DBC")
-      curl_download(url, file.path(dir_destino, file_name_local))
+  
+      # Lê o arquivo e salva em um dataframe
+      cat(paste0("Lendo o arquivo ", file_name, "\n"))
+      file_ext <- tools::file_ext(file_path)
+  
+      if (file_ext == "dbc" | file_ext == "DBC") {
+        file_df <- read.dbc::read.dbc(file_path)
+      } else {
+        cat(paste0("O arquivo ", file_name, " não está no formato DBC.\n"))
+        next
+      }
+  
+      # Adiciona as colunas UF e período
+      file_df$UF <- uf[i]
+      file_df$ANO <- periodo[j]
+  
+      # Adiciona os dados ao dataframe SIM
+      SIM <- rbind(SIM, file_df)
     }
-
-    # Lê o arquivo e salva em um dataframe
-    cat(paste0("Lendo o arquivo ", file_name, "\n"))
-    file_ext <- tools::file_ext(file_path)
-
-    if (file_ext == "dbc" | file_ext == "DBC") {
-      file_df <- read.dbc::read.dbc(file_path)
-    } else {
-      cat(paste0("O arquivo ", file_name, " não está no formato DBC.\n"))
-      next
-    }
-
-    # Adiciona as colunas UF e período
-    file_df$UF <- uf[i]
-    file_df$ANO <- periodo[j]
-
-    # Adiciona os dados ao dataframe SIM
-    SIM <- rbind(SIM, file_df)
   }
-}
   
   # Transfer the 'SIM' dataframe to the global environment
   assign("SIM", SIM, envir = .GlobalEnv)
