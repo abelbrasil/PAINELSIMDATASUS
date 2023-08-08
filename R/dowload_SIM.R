@@ -151,6 +151,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
           if (file.exists(file_path)) {
             # Lê o arquivo e salva em um dataframe
             cat(paste0("Lendo o arquivo ", file_name, "\n"))
+            file_path <- file.path(dir_destino, file_name)
             file_ext <- tools::file_ext(file_path)
             
             if (file_ext == "dbc" | file_ext == "DBC") {
