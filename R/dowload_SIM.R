@@ -508,16 +508,16 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Salva o arquivo RData
   save.image(file = caminho_arquivo)
   
-  # Caminho completo do arquivo "[Modelo]Painel.pbix"
+  # Caminho completo do arquivo "Painel_SIM.pbix"
   caminho_pasta <- system.file("Arquivos_externos", package = "PAINELSIMDATASUS")
-  caminho_completo <- file.path(caminho_pasta, "[Modelo]Painel.pbix")
+  caminho_completo <- file.path(caminho_pasta, "Painel_SIM.pbix")
   
   # Verifica se o arquivo existe
   if (file.exists(caminho_completo)) {
     # Move o arquivo para o diretório de destino
-    novo_caminho_completo <- file.path(dir_destino, "[Modelo]Painel.pbix")
+    novo_caminho_completo <- file.path(dir_destino, "Painel_SIM.pbix")
     file.rename(caminho_completo, novo_caminho_completo)
     cat("Arquivo movido com sucesso para:", novo_caminho_completo)
-  } else {cat("O arquivo '[Modelo]Painel.pbix' não foi encontrado no diretório:", caminho_pasta)}
+  } else {cat("O arquivo 'Painel_SIM.pbix' não foi encontrado no diretório:", caminho_pasta)}
   
 }
