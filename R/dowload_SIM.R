@@ -467,5 +467,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
     file.rename(caminho_completo, novo_caminho_completo)
     cat("Arquivo movido com sucesso para:", novo_caminho_completo)
   } else {cat("O arquivo 'Painel_SIM.pbix' não foi encontrado no diretório:", caminho_pasta)}
-  
+
+  # Abre o explorador de arquivos no diretório especificado
+  shell.exec(dir_destino)
 }
