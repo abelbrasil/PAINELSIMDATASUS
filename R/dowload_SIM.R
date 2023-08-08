@@ -47,13 +47,6 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   cat("O arquivo 'read.dbc' foi movido com sucesso para:", novo_caminho_completo)
 }
   
-  # Transformacao dos parametros ++++++++++++++++++++++++++++++++++++
-  # Convert the input 'uf' into a vector if necessary
-  if (!is.vector(uf)) uf <- as.vector(uf)
-  
-  # Convert the input 'periodo' into a vector if necessary
-  if (!is.vector(periodo)) periodo <- as.vector(periodo)
-  
   # Diretorio e arquivos +++++++++++++++++++++++++++++++++++++++++++++++++++++++
   # Define o destino do diretorio para baixar os arquivos
   dir_destino <- file.path(dir, "SIM")
@@ -93,16 +86,17 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
           file_name_alt <- paste0("DO", uf[i], periodo[j], ".dbc")
           url_alt <- stri_paste(base_url, file_name_alt)
           if (!identical(httr::status_code(httr::GET(url_alt)), 200L)) {
-            cat(paste0("Arquivo ", file_name, " não encontrado.\n"))
-            next
+            cat(paste0("Arquivo ", file_name, " não encontrado. Tentando baixar...\n"))
+            curl_download(url, file.path(dir_destino, file_name))
+          } else {
+            file_name <- file_name_alt
+            url <- url_alt
           }
-          file_name <- file_name_alt
-          url <- url_alt
+        } else {
+          # Cria conexão com a URL e baixa o arquivo
+          file_name_local <- stri_replace_last_fixed(file_name, ".dbc", ".DBC")
+          curl_download(url, file.path(dir_destino, file_name_local))
         }
-  
-        # Cria conexão com a URL e baixa o arquivo
-        file_name_local <- stri_replace_last_fixed(file_name, ".dbc", ".DBC")
-        curl_download(url, file.path(dir_destino, file_name_local))
       }
   
       # Lê o arquivo e salva em um dataframe
