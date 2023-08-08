@@ -31,7 +31,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Move a pasta read.dbc para o library do usuário ++++++++++++++++++++++++++++
   
   if (file.exists(file.path(system.file(package = "read.dbc")))) {
-  cat("O arquivo 'read.dbc' Já existe no diretório")
+  cat("O arquivo 'read.dbc' Já existe no diretório library do R. \n")
 } else {
   # Caminho completo da pasta "read.dbc"
   caminho_pasta <- system.file("Arquivos_externos", package = "PAINELSIMDATASUS")
