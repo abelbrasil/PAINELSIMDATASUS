@@ -464,7 +464,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   if (file.exists(caminho_completo)) {
     # Move o arquivo para o diretório de destino
     novo_caminho_completo <- file.path(dir_destino, "Painel_SIM.pbix")
-    file.rename(caminho_completo, novo_caminho_completo)
+    file.copy(caminho_completo, novo_caminho_completo)
     cat("Arquivo movido com sucesso para:", novo_caminho_completo)
   } else {cat("O arquivo 'Painel_SIM.pbix' não foi encontrado no diretório:", caminho_pasta)}
 
