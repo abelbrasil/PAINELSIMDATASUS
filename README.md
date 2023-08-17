@@ -71,6 +71,10 @@ Se você quiser contribuir para o desenvolvimento do pacote "PAINELSIMDATASUS", 
 
 Se você encontrar algum problema ao utilizar o pacote "PAINELSIMDATASUS" ou tiver alguma sugestão de melhoria, por favor, abra uma issue neste repositório. Faremos o possível para resolver os problemas e atender às suas necessidades.
 
+### Possiveis erros que passam ser encontrados
+
+Pode haver erros de conexão. Nesses casos, é preciso rodar novamente a função.
+
 ## Aviso Legal
 
 
