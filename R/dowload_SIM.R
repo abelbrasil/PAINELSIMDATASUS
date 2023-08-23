@@ -44,7 +44,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Move o arquivo para o diretório de destino
   novo_caminho_completo <- file.path(dest_dir, "read.dbc")
   file.rename(caminho_completo, novo_caminho_completo)
-  cat("O arquivo 'read.dbc' foi movido com sucesso para:", novo_caminho_completo)
+  cat("O arquivo 'read.dbc' foi movido com sucesso para:", novo_caminho_completo, "\n")
 }
   
   # Diretorio e arquivos +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -451,7 +451,7 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   list2env(dataframes, envir = env)
   
   # Define o caminho do arquivo
-  caminho_arquivo <- file.path("SIM", "SIM.RData")
+  caminho_arquivo <- file.path(dir_destino, "SIM.RData")
   
   # Salva o arquivo RData
   save.image(file = caminho_arquivo)
@@ -465,8 +465,8 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
     # Move o arquivo para o diretório de destino
     novo_caminho_completo <- file.path(dir_destino, "Painel_SIM.pbix")
     file.copy(caminho_completo, novo_caminho_completo)
-    cat("Arquivo movido com sucesso para:", novo_caminho_completo)
-  } else {cat("O arquivo 'Painel_SIM.pbix' não foi encontrado no diretório:", caminho_pasta)}
+    cat("Arquivo movido com sucesso para:", novo_caminho_completo, "\n")
+  } else {cat("O arquivo 'Painel_SIM.pbix' não foi encontrado no diretório:", caminho_pasta, "\n")}
 
   # Abre o explorador de arquivos no diretório especificado
   shell.exec(dir_destino)
