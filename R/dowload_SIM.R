@@ -456,6 +456,10 @@ download_SIM <- function(uf, periodo, dir = ".", filename = NULL) {
   # Salva o arquivo RData
   save.image(file = caminho_arquivo)
   
+  # Salva o arquivo txt
+  caminho_arquivo2 <- file.path(Sys.getenv("USERPROFILE"), "Documents", "SIM.txt")
+  writeLines(caminho_arquivo, caminho_arquivo2)
+  
   # Caminho completo do arquivo "Painel_SIM.pbix"
   caminho_pasta <- system.file("Arquivos_externos", package = "PAINELSIMDATASUS")
   caminho_completo <- file.path(caminho_pasta, "Painel_SIM.pbix")
